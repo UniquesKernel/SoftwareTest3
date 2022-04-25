@@ -22,26 +22,26 @@ pipeline {
     stage('Restore Nuget Packages')
     {
       steps{
-        bat '"C:\\Program Files\\dotnet\\dotnet.exe" restore SoftwareTest3.sln'
+        bat '"C:\\Program Files\\dotnet\\dotnet.exe" restore src\\MicrowaveOven.sln'
       }
     }
      
     stage('Clean Build'){
       steps{
-        bat '"C:\\Program Files\\dotnet\\dotnet.exe" clean SoftwareTest3.sln'
+        bat '"C:\\Program Files\\dotnet\\dotnet.exe" clean src\\MicrowaveOven.sln'
       }
     }
      
     
     stage('Build Solution'){
       steps{
-        bat '"C:\\Program Files\\dotnet\\dotnet.exe" build SoftwareTest3.sln'
+        bat '"C:\\Program Files\\dotnet\\dotnet.exe" build src\\MicrowaveOven.sln'
       }
     }
     
     stage('Test With Coverage'){
       steps{
-        bat '"C:\\Program Files\\dotnet\\dotnet.exe" test SoftwareTest3.sln -l:nunit;Filename=TestResults.xml --collect:"Xplat Code Coverage"'
+        bat '"C:\\Program Files\\dotnet\\dotnet.exe" test src\\MicrowaveOven.sln -l:nunit;Filename=TestResults.xml --collect:"Xplat Code Coverage"'
       }
     }
   
