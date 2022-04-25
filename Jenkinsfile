@@ -3,7 +3,7 @@ pipeline {
 
   options {
    // buildDiscarder(artifactDaysToKeepStr: '', artifactNumToKeep: '', daysToKeepStr: '', numToKeep: '')
-    disableConcurrentBuild()
+    disableConcurrentBuilds()
   }
 
   stages {
