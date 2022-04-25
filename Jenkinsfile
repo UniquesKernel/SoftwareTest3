@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   options {
-    buildDiscarder(artifactDaysToKeepStr: '', artifactNumToKeep: '', daysToKeepStr: '', numToKeep: '')
+   // buildDiscarder(artifactDaysToKeepStr: '', artifactNumToKeep: '', daysToKeepStr: '', numToKeep: '')
     disableConcurrentBuild()
   }
 
@@ -38,21 +38,21 @@ pipeline {
         bat '"C:\\Program Files\\dotnet\\dotnet.exe" build SoftwareTest3.sln'
       }
     }
-     
-    try{
-      stage('Test With Coverage'){
-        steps{
-          bat '"C:\\Program Files\\dotnet\\dotnet.exe" test SoftwareTest3.sln -l:nunit;Filename=TestResults.xml --collect:"Xplat Code Coverage"'
-        }
+    
+    stage('Test With Coverage'){
+      steps{
+        bat '"C:\\Program Files\\dotnet\\dotnet.exe" test SoftwareTest3.sln -l:nunit;Filename=TestResults.xml --collect:"Xplat Code Coverage"'
       }
     }
-    finally{
-      stage('Publish Test Results'){
-        steps{
-          nunit testResultsPattern: 'SoftwareTest3Test\\TestResults\\TestResults.xml'
-        }
+  
+    stage('Publish Test Results'){
+      steps{
+        nunit testResultsPattern: 'SoftwareTest3Test\\TestResults\\TestResults.xml'
       }
     }
+    
+    
+    
      
     stage('Generate Coverage Report') {
       steps{
