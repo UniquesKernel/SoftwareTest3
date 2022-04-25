@@ -50,6 +50,7 @@ pipeline {
       stage('Publish Test Results'){
         steps{
           nunit testResultsPattern: 'SoftwareTest3Test\\TestResults\\TestResults.xml'
+        }
       }
     }
      
