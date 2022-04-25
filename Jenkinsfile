@@ -47,7 +47,8 @@ pipeline {
   
     stage('Publish Test Results'){
       steps{
-        nunit testResultsPattern: 'SoftwareTest3Test\\TestResults\\TestResults.xml'
+        nunit testResultsPattern: 'src\\Microwave.Test.Integration\\TestResults\\TestResults.xml'
+        nunit testResultsPattern: 'src\\Microwave.Test.Unit\\TestResults\\TestResults.xml'
       }
     }
     
