@@ -263,7 +263,7 @@ namespace Microwave.Test.Unit
             uut.AdjustTime(timeAdjustment);
 
             // wait shorter than expiration, shouldn't come
-            Assert.That(!pause.WaitOne((startTime + timeAdjustment - waitTime) * 1000 - 100));
+            Assert.That(!pause.WaitOne((startTime + timeAdjustment - waitTime) * 1000 - 200));
         }
 
     }
