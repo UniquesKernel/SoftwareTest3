@@ -18,6 +18,30 @@ namespace Microwave.Test.Unit
             output = Substitute.For<IOutput>();
             uut = new PowerTube(output);
         }
+      
+        [Test]
+        public void PowerTubeCreation_DefaultValues()
+        {
+            Assert.That(uut, Is.Not.Null);
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains($"{700}")));
+        }
+
+        [TestCase(1)]
+        [TestCase(50)]
+        [TestCase(5000)]
+        public void PowerTubeCreation_CorrectValues(int maxPower)
+        {
+            PowerTube uut2 = new PowerTube(output, maxPower);
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains($"{maxPower}")));
+        }
+
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(-50)]
+        public void PowerTubeCreation_IncorrectValues(int maxPower)
+        {
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => new PowerTube(output, maxPower)); 
+        }
 
         [TestCase(1)]
         [TestCase(50)]
@@ -52,7 +76,7 @@ namespace Microwave.Test.Unit
         public void TurnOff_WasOff_NoOutput()
         {
             uut.TurnOff();
-            output.DidNotReceive().OutputLine(Arg.Any<string>());
+            output.DidNotReceive().OutputLine(Arg.Is<string>($"PowerTube turned off"));
         }
 
         [Test]
@@ -61,5 +85,6 @@ namespace Microwave.Test.Unit
             uut.TurnOn(50);
             Assert.Throws<System.ApplicationException>(() => uut.TurnOn(60));
         }
+
     }
 }
