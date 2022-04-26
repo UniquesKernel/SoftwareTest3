@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Microwave.Classes.Interfaces
 {
-    internal interface IMotor
+    public interface IMotor
     {
         public void On();
 
