@@ -4,10 +4,12 @@ using System.Text;
 
 namespace Microwave.Classes.Interfaces
 {
-    internal interface ITurntable
+    internal interface IMotor
     {
-        public void Start(in int speed);
-        public void Stop();
+        public void On();
+
+        public void Off();
+
         public void setSpeed(int speed);
     }
 }
