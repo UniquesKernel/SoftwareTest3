@@ -9,36 +9,59 @@ namespace Microwave.Classes.Boundary
     {
         private int speed;
 
-        public Turntable()
+        private IMotor motor;
+
+        private bool isStarted;
+
+        public Turntable(IMotor motor)
         {
-            setSpeed();
+            this.motor = motor;
+            isStarted = false;
+
         }
 
-        public void Start()
+        public void Start(in int speed)
         {
-
+            if(!isStarted)
+            {
+                setSpeed(speed);
+                this.motor.On();
+                isStarted = true;
+            }
         }
 
         public void Stop()
         {
+            if(isStarted)
+            { 
+                this.motor.Off();
+                isStarted = false;
+            }
 
         }
 
 
         //speed from 1 to 100
-        public void setSpeed(int speed = 50)
+        public void setSpeed(int speed)
         {
+            if(this.speed == speed)
+            {
+                return;
+            }
+
             if (speed < 1)
             {
                 this.speed = 1;
-                return;
             }
-            if(speed > 100)
+            else if (speed > 100)
             {
                 this.speed = 100;
-                return;
             }
-            this.speed = speed;
+            else
+            {
+                this.speed = speed;
+            }
+            this.motor.setSpeed(this.speed);
         }
 
     }
