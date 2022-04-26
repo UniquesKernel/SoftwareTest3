@@ -116,7 +116,6 @@ namespace Microwave.Test.Unit
         public void Stop_StartedOneTick_NoExpiredTriggered()
         {
             ManualResetEvent pause = new ManualResetEvent(false);
-            int notifications = 0;
 
             uut.Expired += (sender, args) => pause.Set();
             uut.TimerTick += (sender, args) => uut.Stop();
@@ -146,6 +145,41 @@ namespace Microwave.Test.Unit
             pause.WaitOne(ticks * 1000 + 100);
 
             Assert.That(uut.TimeRemaining, Is.EqualTo(5-ticks*1));
+        }
+
+        [TestCase(-1)]
+        [TestCase(0)]
+        [TestCase(1)]
+        public void AdjustTime_Change_TimeRemainingCorrect(int timeAdjustment)
+        {
+            uut.Start(10);
+            uut.Stop();
+
+            Assert.That(uut.TimeRemaining, Is.EqualTo(10));
+
+            int expectedTimeRemaining = uut.TimeRemaining + timeAdjustment;
+            uut.AdjustTime(timeAdjustment);
+
+            Assert.That(uut.TimeRemaining, Is.EqualTo(expectedTimeRemaining));
+        }
+
+        [TestCase(1)]
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void AdjustTime_TimerTick_CorrectNumber(int timeAdjustment)
+        {
+            ManualResetEvent pause = new ManualResetEvent(false);
+            int notifications = 0;
+
+            uut.Expired += (sender, args) => pause.Set();
+            uut.TimerTick += (sender, args) => notifications++;
+
+            uut.Start(2);
+            uut.AdjustTime(timeAdjustment);
+
+            Assert.That(pause.WaitOne((2+timeAdjustment)*1000+100));
+            Assert.That(notifications, Is.EqualTo(2+timeAdjustment));
+
         }
     }
 }
