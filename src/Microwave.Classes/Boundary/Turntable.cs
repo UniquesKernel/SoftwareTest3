@@ -5,7 +5,7 @@ using Microwave.Classes.Interfaces;
 
 namespace Microwave.Classes.Boundary
 {
-    internal class Turntable : ITurntable
+    public class Turntable : ITurntable
     {
         private int speed;
 
