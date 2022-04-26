@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using NUnit.Framework;
 using Timer = Microwave.Classes.Boundary.Timer;
 
@@ -162,6 +163,43 @@ namespace Microwave.Test.Unit
 
             Assert.That(uut.TimeRemaining, Is.EqualTo(expectedTimeRemaining));
         }
+
+        [TestCase(1,1)]
+        [TestCase(1,0)]
+        [TestCase(1,-1)]
+        [TestCase(2,1)]
+        [TestCase(2,0)]
+        [TestCase(2,-1)]
+        [TestCase(3,1)]
+        [TestCase(3,0)]
+        [TestCase(3,-1)]
+        [TestCase(4,1)]
+        [TestCase(4,0)]
+        [TestCase(4,-1)]
+
+        public void AdjustTime_Tick_Started_TimeRemainingCorrect(int ticks, int timeAdjustment)
+        {
+            ManualResetEvent pause = new ManualResetEvent(false);
+            int ticksGone = 0;
+            uut.TimerTick += (sender, args) =>
+            {
+                ticksGone++;
+                if (ticksGone >= ticks)
+                    pause.Set();
+            };
+            uut.Start(4);
+
+            // wait for ticks, only a little longer
+            pause.WaitOne(ticks * 1000 + 100);
+
+            // Add or take away extra time
+            uut.AdjustTime(timeAdjustment);
+            
+            Assert.That(uut.TimeRemaining, Is.EqualTo((4+timeAdjustment)-ticks*1));
+        }
+
+
+
 
         [TestCase(1)]
         [TestCase(0)]
