@@ -26,7 +26,7 @@ namespace Microwave.Test.Unit
             powerTube = Substitute.For<IPowerTube>();
             buzzer = Substitute.For<IBuzzer>();
 
-            uut = new CookController(timer, display, powerTube, buzzer, ui);
+            uut = new CookController(timer, display, powerTube, ui);
         }
 
         [Test]

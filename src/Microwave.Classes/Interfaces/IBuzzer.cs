@@ -6,6 +6,7 @@ namespace Microwave.Classes.Interfaces
 {
     public interface IBuzzer
     {
-        void Buzz(int milliseconds);
+        void BuzzerOn();
+        void BuzzerOff();
     }
 }

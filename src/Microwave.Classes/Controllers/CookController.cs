@@ -20,8 +20,7 @@ namespace Microwave.Classes.Controllers
             ITimer timer,
             IDisplay display,
             IPowerTube powerTube,
-            IBuzzer buzzer,
-            IUserInterface ui) : this(timer, display, powerTube, buzzer)
+            IUserInterface ui) : this(timer, display, powerTube)
         {
             UI = ui;
 
@@ -30,13 +29,11 @@ namespace Microwave.Classes.Controllers
         public CookController(
             ITimer timer,
             IDisplay display,
-            IPowerTube powerTube,
-            IBuzzer buzzer)
+            IPowerTube powerTube)
         {
             myTimer = timer;
             myDisplay = display;
             myPowerTube = powerTube;
-            myBuzzer = buzzer;
 
             timer.Expired += new EventHandler(OnTimerExpired);
             timer.TimerTick += new EventHandler(OnTimerTick);
