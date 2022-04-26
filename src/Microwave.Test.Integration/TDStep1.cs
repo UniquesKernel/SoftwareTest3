@@ -20,6 +20,7 @@ namespace Microwave.Test.Integration
         private ILight light;
         private IDisplay display;
         private ICookController cooker;
+        private IBuzzer buzzer;
 
         [SetUp]
         public void Setup()
@@ -30,6 +31,8 @@ namespace Microwave.Test.Integration
             startCancelButton = new Button();
 
             light = Substitute.For<ILight>();
+
+            buzzer = Substitute.For<IBuzzer>();
             display = Substitute.For<IDisplay>();
             cooker = Substitute.For<ICookController>();
 
