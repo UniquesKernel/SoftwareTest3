@@ -198,9 +198,6 @@ namespace Microwave.Test.Unit
             Assert.That(uut.TimeRemaining, Is.EqualTo((4+timeAdjustment)-ticks*1));
         }
 
-
-
-
         [TestCase(1)]
         [TestCase(0)]
         [TestCase(-1)]
@@ -212,11 +209,15 @@ namespace Microwave.Test.Unit
             uut.Expired += (sender, args) => pause.Set();
             uut.TimerTick += (sender, args) => notifications++;
 
-            uut.Start(2);
+            int startTime = 5;
+            uut.Start(startTime);
+
+            pause.WaitOne(2*1000+100);
+
             uut.AdjustTime(timeAdjustment);
 
-            Assert.That(pause.WaitOne((2+timeAdjustment)*1000+100));
-            Assert.That(notifications, Is.EqualTo(2+timeAdjustment));
+            Assert.That(pause.WaitOne((startTime+timeAdjustment - notifications)*1000+100));
+            Assert.That(notifications, Is.EqualTo(startTime+timeAdjustment));
 
         }
         
@@ -226,11 +227,18 @@ namespace Microwave.Test.Unit
             ManualResetEvent pause = new ManualResetEvent(false);
 
             uut.Expired += (sender, args) => pause.Set();
-            uut.Start(2);
-            uut.AdjustTime(1);
+            
+            int startTime = 5;
+            int waitTime = 1;
+            int timeAdjustment = 1;
+            uut.Start(startTime);
+
+            pause.WaitOne(waitTime * 1000 + 100);
+
+            uut.AdjustTime(timeAdjustment);
 
             // wait for expiration, but not much longer, should come
-            Assert.That(pause.WaitOne(3100));
+            Assert.That(pause.WaitOne((startTime + timeAdjustment - waitTime)*1000+100));
         }
 
         [Test]
@@ -239,11 +247,18 @@ namespace Microwave.Test.Unit
             ManualResetEvent pause = new ManualResetEvent(false);
 
             uut.Expired += (sender, args) => pause.Set();
-            uut.Start(2);
+
+            int startTime = 5;
+            int timeAdjustment = 1;
+            int waitTime = 1;
+            uut.Start(startTime);
+
+            pause.WaitOne(waitTime * 1000 + 100);
+
             uut.AdjustTime(1);
 
-            // wait for expiration, but not much longer, should come
-            Assert.That(!pause.WaitOne(2900));
+            // wait shorter than expiration, shouldn't come
+            Assert.That(!pause.WaitOne((startTime + timeAdjustment - waitTime) * 1000 - 100));
         }
 
     }

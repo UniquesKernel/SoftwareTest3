@@ -35,6 +35,11 @@ namespace Microwave.Classes.Boundary
 
         public void AdjustTime(int timeAdjustment)
         {
+            if (timeAdjustment < 0 && timeAdjustment > TimeRemaining)
+            {
+                TimeRemaining = 0;
+                return;
+            }
             TimeRemaining += timeAdjustment;
         }
 
