@@ -99,9 +99,10 @@ namespace Microwave.Classes.Controllers
         {
             if(power < 1)
             {
-                throw new ArgumentOutOfRangeException("power", power, "Must be between greater than 1(Incl.)");
+                throw new ArgumentOutOfRangeException("power", power, "Must be greater than 1(Incl.)");
             }
-            int tmp = (int)((power / 700) * 100);
+
+            int tmp = (int)Math.Ceiling(((double)power / 700) * 100);
             return  tmp > 100 ? 100 : tmp;
         }
     }

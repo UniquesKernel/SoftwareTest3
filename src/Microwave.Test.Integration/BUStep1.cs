@@ -35,6 +35,19 @@ namespace Microwave.Test.Integration
             cooker = new CookController(timer, display, powerTube, turntable, buzzer, ui);
         }
 
+
+        #region CookController_Turntable
+
+
+
+
+        #endregion
+
+
+
+
+
+
         #region CookController_PowerTube
 
         [Test]
