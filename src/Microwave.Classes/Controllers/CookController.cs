@@ -15,29 +15,33 @@ namespace Microwave.Classes.Controllers
         private IDisplay myDisplay;
         private IPowerTube myPowerTube;
         private ITimer myTimer;
+        private ITurntable myTurntable;
         private IBuzzer myBuzzer;
 
         public CookController(
             ITimer timer,
             IDisplay display,
             IPowerTube powerTube,
+            ITurntable turntable,
             IBuzzer buzzer,
             IUserInterface ui) : this(timer, display, powerTube, buzzer)
         {
             UI = ui;
-            
-
+            myTurntable = turntable;
         }
 
         public CookController(
             ITimer timer,
             IDisplay display,
+            IPowerTube powerTube,
             IPowerTube powerTube, 
-            IBuzzer buzzer)
+            IBuzzer buzzer,
+            ITurntable turntable)
         {
             myTimer = timer;
             myDisplay = display;
             myPowerTube = powerTube;
+            myTurntable = turntable;
             myBuzzer = buzzer;
 
             timer.Expired += new EventHandler(OnTimerExpired);
@@ -87,6 +91,12 @@ namespace Microwave.Classes.Controllers
                 int remaining = myTimer.TimeRemaining;
                 myDisplay.ShowTime(remaining / 60, remaining % 60);
             }
+        }
+
+        private int SpeedPowerConverter(int power)
+        {
+            double tmp = power * 0.1;
+            return 
         }
     }
 }

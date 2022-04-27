@@ -28,7 +28,7 @@ namespace Microwave.Test.Unit
         {
             uut.Start(speed);
             motor.Received().On();
-            motor.Received().setSpeed(Arg.Is<int>(sp => sp == speed));
+            motor.Received().SetSpeed(Arg.Is<int>(sp => sp == speed));
         }
 
 
@@ -37,9 +37,9 @@ namespace Microwave.Test.Unit
         [TestCase(101)]
         public void Start_WithOutofrangeSpeed_BoundarySetMotorSpeed(int speed)
         {
-            uut.setSpeed(speed);
+            uut.Start(speed);
             motor.DidNotReceive().On();
-            motor.DidNotReceive().setSpeed(Arg.Any<int>());
+            motor.DidNotReceive().SetSpeed(Arg.Any<int>());
         }
 
         [Test]
@@ -47,8 +47,8 @@ namespace Microwave.Test.Unit
         {
             uut.Start(10);
             motor.ClearReceivedCalls();
-            uut.setSpeed(10);
-            motor.DidNotReceive().setSpeed(Arg.Any<int>());
+            uut.SetSpeed(10);
+            motor.DidNotReceive().SetSpeed(Arg.Any<int>());
         }
 
     }

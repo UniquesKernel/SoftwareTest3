@@ -10,6 +10,6 @@ namespace Microwave.Classes.Interfaces
 
         public void Off();
 
-        public void setSpeed(int speed);
+        public void SetSpeed(int speed);
     }
 }
