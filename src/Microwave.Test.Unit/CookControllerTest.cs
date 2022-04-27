@@ -66,8 +66,8 @@ namespace Microwave.Test.Unit
         public void StartCooking_ValidParameters_TurntableStart(int power)
         {
             uut.StartCooking(power, 60);
-            int tmp = (int)((power / 700) * 100);
-          
+            int tmp = (int)Math.Ceiling(((double)power / 700) * 100);
+
             turntable.Received().Start(tmp > 100 ? 100 : tmp);
         }
 

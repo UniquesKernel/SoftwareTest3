@@ -38,13 +38,13 @@ namespace Microwave.Test.Integration
             powerButton = Substitute.For<IButton>();
             timeButton = Substitute.For<IButton>();
             startCancelButton = Substitute.For<IButton>();
-            turntable = Substitute.For<Turntable>();
 
             door = Substitute.For<IDoor>();
 
             timer = new Timer();
             display = new Display(output);
             powerTube = new PowerTube(output);
+            turntable = new Turntable(output);
 
             light = new Light(output);
 
