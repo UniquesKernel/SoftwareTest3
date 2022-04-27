@@ -8,6 +8,6 @@ namespace Microwave.Classes.Interfaces
     {
         public void Start(int speed);
         public void Stop();
-        public bool setSpeed(int speed);
+        public bool SetSpeed(int speed);
     }
 }
