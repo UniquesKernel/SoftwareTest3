@@ -10,6 +10,7 @@ namespace Microwave.App
     {
         static void Main(string[] args)
         {
+
             Button startCancelButton = new Button();
             Button increaseTimeButton = new Button();
             Button decreaseTimeButton = new Button();
@@ -19,6 +20,8 @@ namespace Microwave.App
             Door door = new Door();
 
             Output output = new Output();
+
+            Turntable turntable = new Turntable(output);
 
             Display display = new Display(output);
 
@@ -30,7 +33,7 @@ namespace Microwave.App
 
             Microwave.Classes.Boundary.Timer timer = new Timer();
 
-            CookController cooker = new CookController(timer, display, powerTube, buzzer);
+            CookController cooker = new CookController(timer, display, powerTube, turntable, buzzer);
 
             UserInterface ui = new UserInterface(
                 powerButton, 

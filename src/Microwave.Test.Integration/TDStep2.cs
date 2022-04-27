@@ -27,6 +27,7 @@ namespace Microwave.Test.Integration
         private IPowerTube powerTube;
         private ITimer timer;
         private IOutput output;
+        private ITurntable turntable;
 
 
         [SetUp]
@@ -40,13 +41,14 @@ namespace Microwave.Test.Integration
             powerTube = Substitute.For<IPowerTube>();
             timer = Substitute.For<ITimer>();
             output = Substitute.For<IOutput>();
+            turntable = Substitute.For<ITurntable>();
 
             light = new Light(output);
 
             buzzer = new Buzzer(output);
             display = new Display(output);
 
-            cooker = new CookController(timer, display, powerTube, buzzer);
+            cooker = new CookController(timer, display, powerTube, turntable, buzzer);
 
             ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
             cooker.UI = ui;

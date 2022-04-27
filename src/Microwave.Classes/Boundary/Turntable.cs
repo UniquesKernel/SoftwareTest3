@@ -7,15 +7,14 @@ namespace Microwave.Classes.Boundary
 {
     public class Turntable : ITurntable
     {
-        private int speed;
 
-        private IMotor motor;
+        private IOutput myOutput;
 
         private bool isStarted;
 
-        public Turntable(IMotor motor)
+        public Turntable(IOutput output)
         {
-            this.motor = motor;
+            myOutput = output;
             isStarted = false;
 
         }
@@ -24,11 +23,13 @@ namespace Microwave.Classes.Boundary
         {
             if(!isStarted)
             {
-                if(SetSpeed(speed))
+                if (speed < 1 || 100 < speed)
                 {
-                    this.motor.On();
-                    isStarted = true;
+                    throw new ArgumentOutOfRangeException("speed", speed, "Speed must be between 1 and 100 (Incl.)");
                 }
+
+                myOutput.OutputLine($"Turntable started with speed of: {speed}");
+                isStarted = true;
 
             }
         }
@@ -37,25 +38,12 @@ namespace Microwave.Classes.Boundary
         {
             if(isStarted)
             { 
-                this.motor.Off();
                 isStarted = false;
+                myOutput.OutputLine($"Turntable stopped");
             }
 
         }
 
-
-        //speed from 1 to 100
-        public bool SetSpeed(int speed)
-        {
-
-            if (speed < 1 || 100 < speed || this.speed == speed)
-            {
-                return false;
-            }
-            this.speed = speed;
-            this.motor.SetSpeed(this.speed);
-            return true;
-        }
 
     }
 }
