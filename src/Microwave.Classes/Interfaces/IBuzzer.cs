@@ -6,6 +6,10 @@ namespace Microwave.Classes.Interfaces
 {
     public interface IBuzzer
     {
+        public bool IsOn
+        {
+            get;
+        }
         void BuzzerOn();
         void BuzzerOff();
     }

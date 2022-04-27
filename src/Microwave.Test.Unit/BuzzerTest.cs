@@ -21,6 +21,12 @@ namespace Microwave.Test.Unit
         }
 
         [Test]
+        public void BuzzerStartsOff()
+        {
+            Assert.That(uut.IsOn, Is.False);
+        }
+
+        [Test]
         public void BuzzerOn()
         {
             uut.BuzzerOn();

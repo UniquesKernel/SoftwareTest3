@@ -15,6 +15,11 @@ namespace Microwave.Classes.Boundary
             _output = output;
         }
 
+        public bool IsOn
+        {
+            get { return _isOn; }
+        }
+
         public void BuzzerOn()
         {
             if (!_isOn)
