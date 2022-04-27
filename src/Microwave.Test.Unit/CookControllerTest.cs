@@ -64,6 +64,7 @@ namespace Microwave.Test.Unit
             timer.Expired += Raise.EventWith(this, EventArgs.Empty);
 
             powerTube.Received().TurnOff();
+            
         }
 
         [Test]
@@ -74,6 +75,16 @@ namespace Microwave.Test.Unit
             timer.Expired += Raise.EventWith(this, EventArgs.Empty);
 
             ui.Received().CookingIsDone();
+        }
+
+        [Test]
+        public void Cooking_TimerExpired_BuzzerCalled()
+        {
+            uut.StartCooking(50, 60);
+
+            timer.Expired += Raise.EventWith(this, EventArgs.Empty);
+
+            buzzer.Received(3).BuzzerOn();
         }
 
         [Test]
