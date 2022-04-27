@@ -10,45 +10,64 @@ namespace Microwave.Test.Unit
     public class TurntableTest
     {
 
-        private IMotor motor;
+        private Output output;
         private Turntable uut;
 
         [SetUp]
         public void Setup()
         {
-            motor = Substitute.For<IMotor>();
-            uut = new Turntable(motor);
+            output = Substitute.For<Output>();
+            uut = new Turntable(output);
         }
 
 
         [TestCase(1)]
         [TestCase(50)]
         [TestCase(100)]
-        public void Start_WithInrangeSpeed_InrangeSetMotorSpeed(int speed)
+        public void Start_WasStopped_WithInrangeSpeed_CorrectOutput(int speed)
         {
             uut.Start(speed);
-            motor.Received().On();
-            motor.Received().SetSpeed(Arg.Is<int>(sp => sp == speed));
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains($"{speed}")));
+
         }
 
 
         [TestCase(-1)]
         [TestCase(0)]
         [TestCase(101)]
-        public void Start_WithOutofrangeSpeed_BoundarySetMotorSpeed(int speed)
+        public void Start_WasStopped_WithOutofrangeSpeed_ThrowExeption(int speed)
         {
-            uut.Start(speed);
-            motor.DidNotReceive().On();
-            motor.DidNotReceive().SetSpeed(Arg.Any<int>());
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => uut.Start(speed));
+
         }
 
-        [Test]
-        public void SetSpeed_WasTheSameSpeed_NoSetMotorSpeed()
+        [TestCase]
+        public void Stop_WasStarted_CorrectOutput()
         {
-            uut.Start(10);
-            motor.ClearReceivedCalls();
-            uut.SetSpeed(10);
-            motor.DidNotReceive().SetSpeed(Arg.Any<int>());
+            uut.Start(50);
+            uut.Stop();
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains($"stopped")));
+        }
+
+        [TestCase(-1)]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(50)]
+        [TestCase(100)]
+        [TestCase(101)]
+        public void Start_WasStarted_CorrectOutcome(int speed)
+        {
+            uut.Start(50);
+            output.ClearReceivedCalls();
+            uut.Start(speed);
+            output.DidNotReceive().OutputLine(Arg.Any<string>());
+
+        }
+
+        [TestCase]
+        public void Stop_WasStopped_CorrectOutcome()
+        {
+            output.DidNotReceive().OutputLine(Arg.Any<string>());
         }
 
     }

@@ -21,10 +21,9 @@ namespace Microwave.Classes.Controllers
             IDisplay display,
             IPowerTube powerTube,
             ITurntable turntable,
-            IUserInterface ui) : this(timer, display, powerTube)
+            IUserInterface ui) : this(timer, display, powerTube,turntable)
         {
             UI = ui;
-            myTurntable = turntable;
         }
 
         public CookController(
@@ -44,6 +43,7 @@ namespace Microwave.Classes.Controllers
 
         public void StartCooking(int power, int time)
         {
+            myTurntable.Start(SpeedPowerConverter(power));
             myPowerTube.TurnOn(power);
             myTimer.Start(time);
             isCooking = true;
@@ -53,6 +53,7 @@ namespace Microwave.Classes.Controllers
         {
             isCooking = false;
             myPowerTube.TurnOff();
+            myTurntable.Stop();
             myTimer.Stop();
         }
 
@@ -62,6 +63,7 @@ namespace Microwave.Classes.Controllers
             {
                 isCooking = false;
                 myPowerTube.TurnOff();
+                myTurntable.Stop();
                 UI.CookingIsDone();
             }
         }
@@ -77,8 +79,12 @@ namespace Microwave.Classes.Controllers
 
         private int SpeedPowerConverter(int power)
         {
-            double tmp = power * 0.1;
-            return 
+            if(power < 1)
+            {
+                throw new ArgumentOutOfRangeException("power", power, "Must be between greater than 1(Incl.)");
+            }
+            int tmp = (int)((power / 700) * 100);
+            return  tmp > 100 ? 100 : tmp;
         }
     }
 }

@@ -16,6 +16,7 @@ namespace Microwave.Test.Integration
         private Display display;
         private PowerTube powerTube;
         private CookController cooker;
+        private Turntable turntable;
 
         private IUserInterface ui;
 
@@ -27,10 +28,11 @@ namespace Microwave.Test.Integration
             timer = new Timer();
             display = new Display(output);
             powerTube = new PowerTube(output);
+            turntable = new Turntable(output);  
 
             ui = Substitute.For<IUserInterface>();
 
-            cooker = new CookController(timer, display, powerTube, ui);
+            cooker = new CookController(timer, display, powerTube, turntable, ui);
         }
 
         #region CookController_PowerTube
