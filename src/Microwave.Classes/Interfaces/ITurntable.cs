@@ -6,8 +6,8 @@ namespace Microwave.Classes.Interfaces
 {
     public interface ITurntable
     {
-        public void Start(in int speed);
+        public void Start(int speed);
         public void Stop();
-        public void setSpeed(int speed);
+        public bool setSpeed(int speed);
     }
 }

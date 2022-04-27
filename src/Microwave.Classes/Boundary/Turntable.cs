@@ -20,13 +20,16 @@ namespace Microwave.Classes.Boundary
 
         }
 
-        public void Start(in int speed)
+        public void Start(int speed)
         {
             if(!isStarted)
             {
-                setSpeed(speed);
-                this.motor.On();
-                isStarted = true;
+                if(setSpeed(speed))
+                {
+                    this.motor.On();
+                    isStarted = true;
+                }
+
             }
         }
 
@@ -42,26 +45,16 @@ namespace Microwave.Classes.Boundary
 
 
         //speed from 1 to 100
-        public void setSpeed(int speed)
+        public bool setSpeed(int speed)
         {
-            if(this.speed == speed)
-            {
-                return;
-            }
 
-            if (speed < 1)
+            if (speed < 1 || 100 < speed || this.speed == speed)
             {
-                this.speed = 1;
+                return false;
             }
-            else if (speed > 100)
-            {
-                this.speed = 100;
-            }
-            else
-            {
-                this.speed = speed;
-            }
+            this.speed = speed;
             this.motor.setSpeed(this.speed);
+            return true;
         }
 
     }

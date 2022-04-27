@@ -24,7 +24,7 @@ namespace Microwave.Test.Unit
         [TestCase(1)]
         [TestCase(50)]
         [TestCase(100)]
-        public void Start_WasCreated_CorrectMotorCall(int speed)
+        public void Start_WithInrangeSpeed_InrangeSetMotorSpeed(int speed)
         {
             uut.Start(speed);
             motor.Received().On();
@@ -32,22 +32,23 @@ namespace Microwave.Test.Unit
         }
 
 
-        [TestCase(-10)]
+        [TestCase(-1)]
         [TestCase(0)]
         [TestCase(101)]
-        public void Start_WasCreated_IncorrectMotorCall(int speed)
+        public void Start_WithOutofrangeSpeed_BoundarySetMotorSpeed(int speed)
         {
-            uut.Start(speed);
-            motor.Received().On();
-            motor.Received().setSpeed(Arg.Is<int>(sp => sp == (speed < 1 ? 1 : 100 < speed ? 100 : speed)));
+            uut.setSpeed(speed);
+            motor.DidNotReceive().On();
+            motor.DidNotReceive().setSpeed(Arg.Any<int>());
         }
 
         [Test]
-        public void SetSpeed_WasTheSameSpeed()
+        public void SetSpeed_WasTheSameSpeed_NoSetMotorSpeed()
         {
             uut.Start(10);
+            motor.ClearReceivedCalls();
             uut.setSpeed(10);
-            motor.DidNotReceive().setSpeed(Arg.Is<int>(sp => sp == 10));
+            motor.DidNotReceive().setSpeed(Arg.Any<int>());
         }
 
     }
