@@ -15,7 +15,7 @@ pipeline {
      
     stage('Fetch From Git'){
       steps{
-        git branch: 'main', url: 'https://github.com/UniquesKernel/SoftwareTest3.git'
+        git branch: 'Feature/power-tube-power-configurable', url: 'https://github.com/UniquesKernel/SoftwareTest3.git'
       }
     }
      
