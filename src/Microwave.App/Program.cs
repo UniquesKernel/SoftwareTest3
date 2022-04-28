@@ -33,7 +33,7 @@ namespace Microwave.App
 
             Microwave.Classes.Boundary.Timer timer = new Timer();
 
-            CookController cooker = new CookController(timer, display, powerTube, turntable, buzzer);
+            CookController cooker = new CookController(timer, display, powerTube, buzzer, turntable);
 
             UserInterface ui = new UserInterface(
                 powerButton, 

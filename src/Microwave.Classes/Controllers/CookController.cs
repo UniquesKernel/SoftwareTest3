@@ -24,7 +24,7 @@ namespace Microwave.Classes.Controllers
             IPowerTube powerTube,
             ITurntable turntable,
             IBuzzer buzzer,
-            IUserInterface ui) : this(timer, display, powerTube,turntable, buzzer)
+            IUserInterface ui) : this(timer, display, powerTube, buzzer ,turntable )
         {
             UI = ui;
         }
@@ -33,7 +33,6 @@ namespace Microwave.Classes.Controllers
             ITimer timer,
             IDisplay display,
             IPowerTube powerTube,
-            IPowerTube powerTube, 
             IBuzzer buzzer,
             ITurntable turntable)
         {
