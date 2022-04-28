@@ -15,7 +15,7 @@ pipeline {
      
     stage('Fetch From Git'){
       steps{
-        git branch: 'Feature/power-tube-power-configurable', url: 'https://github.com/UniquesKernel/SoftwareTest3.git'
+        git branch: 'main', url: 'https://github.com/UniquesKernel/SoftwareTest3.git'
       }
     }
      
@@ -47,7 +47,6 @@ pipeline {
   
     stage('Publish Test Results'){
       steps{
-        nunit testResultsPattern: 'src\\Microwave.Test.Integration\\TestResults\\TestResults.xml'
         nunit testResultsPattern: 'src\\Microwave.Test.Unit\\TestResults\\TestResults.xml'
       }
     }
