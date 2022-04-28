@@ -31,6 +31,7 @@ namespace Microwave.Test.Unit
         {
             uut.BuzzerOn();
             output.Received(1).OutputLine("Buzzer On");
+            Assert.That(uut.IsOn, Is.True);
         }
         
         [Test]
@@ -38,8 +39,10 @@ namespace Microwave.Test.Unit
         {
             uut.BuzzerOn();
             output.Received(1).OutputLine("Buzzer On");
+            Assert.That(uut.IsOn, Is.True);
             uut.BuzzerOff();
             output.Received(1).OutputLine("Buzzer Off");
+            Assert.That(uut.IsOn, Is.False);
 
         }
 
@@ -49,6 +52,7 @@ namespace Microwave.Test.Unit
             uut.BuzzerOn();
             uut.BuzzerOn();
             output.Received(1).OutputLine("Buzzer On");
+            Assert.That(uut.IsOn, Is.True);
 
         }
 
@@ -57,6 +61,7 @@ namespace Microwave.Test.Unit
         {
             uut.BuzzerOff();
             output.DidNotReceive().OutputLine("Buzzer Off");
+            Assert.That(uut.IsOn, Is.False);
         }
 
 
