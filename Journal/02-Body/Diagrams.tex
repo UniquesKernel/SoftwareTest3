@@ -33,6 +33,20 @@ the time remaining by the requested amount.
   \label{fig:UserInterfaceSTM}
 \end{figure}
 
+\subsubsection{Changes Made to STM for UserInterface}.
+Here follows a list of all changes made to the STM diagram for the UserInterface.
+
+\begin{itemize}
+  \item Start TurnTable when State: Set Time $=>$ Cooking
+  \item Stop TurnTable when State: Cooknig $=>$ DoorIsOpen
+  \item Stop TurnTable when State: Cooking $=>$ CookingFinished $=>$ Ready
+  \item Stop TurnTable when State: Cooking $=>$ Cancel Button Pressed $=>$ Ready
+  \item Increase/Decrease Time when State: Cooking
+  \item Turn Buzzer On 3 times when State: Cooking $=>$ Cooking Finished $=>$ Ready 
+\end{itemize}
+
+
+
 \subsection{Sequence Diagram for Features}
 \begin{figure}[h]
   \centering
