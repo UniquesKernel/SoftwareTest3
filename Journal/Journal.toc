@@ -1,2 +1,13 @@
-\contentsline {section}{\numberline {1}Introduction}{3}{section.1}
-\contentsline {section}{\numberline {2}Diagrams}{4}{section.2}
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
+\contentsline {subsubsection}{\numberline {1.0.1}Jenkins Build: All Branches}{3}{subsubsection.1.0.1}%
+\contentsline {subsubsection}{\numberline {1.0.2}Jenkins Build: Main}{3}{subsubsection.1.0.2}%
+\contentsline {subsubsection}{\numberline {1.0.3}Jenkins Build: Features}{3}{subsubsection.1.0.3}%
+\contentsline {section}{\numberline {2}Diagrams}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Class Diagram}{4}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Short Description for Timer}{4}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Short Description for Buzzer}{4}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Short Description for Power-Tube}{4}{subsubsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.4}Short Description for Turntable}{5}{subsubsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.2}STM Diagram UserInterface}{6}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Changes Made to STM for UserInterface}{6}{subsubsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.3}Sequence Diagram for Features}{6}{subsection.2.3}%
