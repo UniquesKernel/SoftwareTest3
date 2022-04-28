@@ -25,6 +25,12 @@ the time remaining by the requested amount.
 \subsubsection{Short Description for Buzzer}
 The buzzer is entirely controled by the buzzer, which can trun it on and off, as needed. This allows for easy addition of further use of the buzzer ( if e.g. it is desired to have a single buzz when the oven starts), without needing to alter anything other than the controller. We also added a property to allow the program to check if the buzzer is currently on. While this is currently only used in testing, it could be usefull to ensure that the buzzer is actually working as expected.
 
+\subsubsection{Short Description for Power-Tube}
+Since the power-tube max-power setting is set when setting up the power-tube module, the max-power is set in constructor and stored as a read-only. To change the hardcoded max-power the new max-power read-only-variable passed in the constructor of the UI module as well.
+
+\subsubsection{Short Description for Turntable}
+The new Turntable feature makes sure that the food in the microwaveoven rotates with the correct speed regarding the set power of the cooking program. The turntable can be started with a speed parameter and can be stopped. To calculate the correct speed the cookcontroller implements a new private method called “SpeedPowerConverter” that takes a “power” parameter and returns a “speed” parameter. 
+
 
 \newpage
 
@@ -49,12 +55,18 @@ Here follows a list of all changes made to the STM diagram for the UserInterface
 \end{itemize}
 
 \newpage
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.6]{02-Body/Image/TurntableSTM.PNG}
+  \caption{STM diagram for Turntable}%
+  \label{fig:TurntableSTM}
+\end{figure}
 
 \subsection{Sequence Diagram for Features}
 \begin{figure}[h]
   \centering
   \includegraphics[scale=0.6]{02-Body/Image/BuzzerSEQ.PNG}
-  \caption{Sequence diagram for CookControler interacting with Buzzer}%
+  \caption{Sequence diagram for CookController interacting with Buzzer}%
   \label{fig:BuzzerSeq}
 \end{figure}
 
@@ -67,5 +79,12 @@ Here follows a list of all changes made to the STM diagram for the UserInterface
 
 Here only the sequence diagram for the Increase time button has been added, since it
 is identical for the decrease time button feature.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.6]{02-Body/Image/TurntableSeq.PNG}
+  \caption{Sequence diagram for Turntable interfacing with CookController}%
+  \label{fig:TurntableSeq}
+\end{figure}
 
 \newpage
