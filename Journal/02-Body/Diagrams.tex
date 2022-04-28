@@ -31,6 +31,8 @@ Since the power-tube max-power setting is set when setting up the power-tube mod
 \subsubsection{Short Description for Turntable}
 The new Turntable feature makes sure that the food in the microwaveoven rotates with the correct speed regarding the set power of the cooking program. The turntable can be started with a speed parameter and can be stopped. To calculate the correct speed the cookcontroller implements a new private method called “SpeedPowerConverter” that takes a “power” parameter and returns a “speed” parameter. 
 
+\subsubsection{Specification for Turntable}
+Turntable must start the rotating, whenever the cooking program is running. The turntable must stop its rotation when the cooking program is halted, by either the opening of the door, the press of a cancel button and timer completing its countdown.
 
 \newpage
 
