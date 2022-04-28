@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Microwave.Classes.Interfaces;
 
 namespace Microwave.Classes.Controllers
@@ -14,24 +15,30 @@ namespace Microwave.Classes.Controllers
         private IDisplay myDisplay;
         private IPowerTube myPowerTube;
         private ITimer myTimer;
+        private IBuzzer myBuzzer;
 
         public CookController(
             ITimer timer,
             IDisplay display,
             IPowerTube powerTube,
-            IUserInterface ui) : this(timer, display, powerTube)
+            IBuzzer buzzer,
+            IUserInterface ui) : this(timer, display, powerTube, buzzer)
         {
             UI = ui;
+            
+
         }
 
         public CookController(
             ITimer timer,
             IDisplay display,
-            IPowerTube powerTube)
+            IPowerTube powerTube, 
+            IBuzzer buzzer)
         {
             myTimer = timer;
             myDisplay = display;
             myPowerTube = powerTube;
+            myBuzzer = buzzer;
 
             timer.Expired += new EventHandler(OnTimerExpired);
             timer.TimerTick += new EventHandler(OnTimerTick);
@@ -63,6 +70,13 @@ namespace Microwave.Classes.Controllers
                 isCooking = false;
                 myPowerTube.TurnOff();
                 UI.CookingIsDone();
+                for(int i = 0; i < 3; i++)
+                {
+                    myBuzzer.BuzzerOn();
+                    Thread.Sleep(1000);
+                    myBuzzer.BuzzerOff();
+                    Thread.Sleep(1000);
+                }
             }
         }
 
