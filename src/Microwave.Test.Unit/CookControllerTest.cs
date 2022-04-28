@@ -1,4 +1,5 @@
 ﻿using System;
+using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
@@ -37,12 +38,23 @@ namespace Microwave.Test.Unit
             timer.Received().Start(60);
         }
 
+       
+
         [Test]
         public void StartCooking_ValidParameters_PowerTubeStarted()
         {
             uut.StartCooking(50, 60);
 
             powerTube.Received().TurnOn(50);
+        }
+        
+        [Test] 
+        public void StartCooking_ValidParameters_AdjustCookingTime()
+        {
+            uut.StartCooking(50,60);
+            uut.AdjustCookingTime(10);
+
+            timer.Received().AdjustTime(10);
         }
 
         [Test]

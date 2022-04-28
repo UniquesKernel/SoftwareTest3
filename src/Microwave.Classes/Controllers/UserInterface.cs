@@ -18,19 +18,24 @@ namespace Microwave.Classes.Controllers
         private IDisplay myDisplay;
 
         private int powerLevel = 50;
+        private readonly int _maxPowerLevel;
         private int time = 1;
 
         public UserInterface(
             IButton powerButton,
             IButton timeButton,
+            IButton increaseTimeButton,
+            IButton decreaseTimeButton,
             IButton startCancelButton,
             IDoor door,
             IDisplay display,
             ILight light,
-            ICookController cooker)
+            ICookController cooker, in int maxPowerLevel = 700)
         {
             powerButton.Pressed += new EventHandler(OnPowerPressed);
             timeButton.Pressed += new EventHandler(OnTimePressed);
+            increaseTimeButton.Pressed += new EventHandler(OnIncreaseTimePressed);
+            decreaseTimeButton.Pressed += new EventHandler(OnDecreaseTimePressed);
             startCancelButton.Pressed += new EventHandler(OnStartCancelPressed);
 
             door.Closed += new EventHandler(OnDoorClosed);
@@ -39,6 +44,7 @@ namespace Microwave.Classes.Controllers
             myCooker = cooker;
             myLight = light;
             myDisplay = display;
+            _maxPowerLevel = maxPowerLevel;
         }
 
         private void ResetValues()
@@ -56,7 +62,7 @@ namespace Microwave.Classes.Controllers
                     myState = States.SETPOWER;
                     break;
                 case States.SETPOWER:
-                    powerLevel = (powerLevel >= 700 ? 50 : powerLevel+50);
+                    powerLevel = (powerLevel >= _maxPowerLevel ? 50 : powerLevel+50);
                     myDisplay.ShowPower(powerLevel);
                     break;
             }
@@ -73,6 +79,26 @@ namespace Microwave.Classes.Controllers
                 case States.SETTIME:
                     time += 1;
                     myDisplay.ShowTime(time, 0);
+                    break;
+            }
+        }
+
+        public void OnIncreaseTimePressed(object sender, EventArgs e)
+        {
+            switch (myState)
+            {
+                case States.COOKING:
+                    myCooker.AdjustCookingTime(30);
+                    break;
+            }
+        }
+
+        public void OnDecreaseTimePressed(object sender, EventArgs e)
+        {
+            switch (myState)
+            {
+                case States.COOKING:
+                    myCooker.AdjustCookingTime(-30);
                     break;
             }
         }
