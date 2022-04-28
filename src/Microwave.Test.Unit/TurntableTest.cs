@@ -1,4 +1,5 @@
-﻿using Microwave.Classes.Boundary;
+﻿using System;
+using Microwave.Classes.Boundary;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
 using NSubstitute.Core.Arguments;
@@ -10,13 +11,13 @@ namespace Microwave.Test.Unit
     public class TurntableTest
     {
 
-        private Output output;
+        private IOutput output;
         private Turntable uut;
 
         [SetUp]
         public void Setup()
         {
-            output = Substitute.For<Output>();
+            output = Substitute.For<IOutput>();
             uut = new Turntable(output);
         }
 
@@ -67,6 +68,7 @@ namespace Microwave.Test.Unit
         [TestCase]
         public void Stop_WasStopped_CorrectOutcome()
         {
+            uut.Stop();
             output.DidNotReceive().OutputLine(Arg.Any<string>());
         }
 
