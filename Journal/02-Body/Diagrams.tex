@@ -22,6 +22,9 @@ method in the CookController. Telling it to increase or decrease cooking time by
 The CookController itself calls an AdjustTime method in the timer class that increase or decrease
 the time remaining by the requested amount.
 
+\subsubsection{Short Description for Buzzer}
+The buzzer is entirely controled by the buzzer, which can trun it on and off, as needed. This allows for easy addition of further use of the buzzer ( if e.g. it is desired to have a single buzz when the oven starts), without needing to alter anything other than the controller. We also added a property to allow the program to check if the buzzer is currently on. While this is currently only used in testing, it could be usefull to ensure that the buzzer is actually working as expected.
+
 
 \newpage
 
