@@ -3,6 +3,7 @@ using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Internal.Execution;
 
 namespace Microwave.Test.Unit
 {
@@ -13,6 +14,8 @@ namespace Microwave.Test.Unit
 
         private IButton powerButton;
         private IButton timeButton;
+        private IButton increaseTimeButton; 
+        private IButton decreaseTimeButton;
         private IButton startCancelButton;
 
         private IDoor door;
@@ -27,6 +30,8 @@ namespace Microwave.Test.Unit
         {
             powerButton = Substitute.For<IButton>();
             timeButton = Substitute.For<IButton>();
+            increaseTimeButton = Substitute.For<IButton>();
+            decreaseTimeButton = Substitute.For<IButton>();
             startCancelButton = Substitute.For<IButton>();
             door = Substitute.For<IDoor>();
             light = Substitute.For<ILight>();
@@ -34,7 +39,8 @@ namespace Microwave.Test.Unit
             cooker = Substitute.For<ICookController>();
 
             uut = new UserInterface(
-                powerButton, timeButton, startCancelButton,
+                powerButton, timeButton, increaseTimeButton, decreaseTimeButton,
+                startCancelButton,
                 door,
                 display,
                 light,
@@ -191,6 +197,34 @@ namespace Microwave.Test.Unit
             door.Opened += Raise.EventWith(this, EventArgs.Empty);
 
             light.Received().TurnOn();
+        }
+
+        [Test]
+        public void Cooking_IncreaseTimeButton_AdjustCookingTimeCalled()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            increaseTimeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            cooker.Received().AdjustCookingTime(30);
+        }
+
+        [Test]
+        public void Cooking_DecreaseTimeButton_AdjustCookingTimeCalled()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            decreaseTimeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            cooker.Received().AdjustCookingTime(-30);
         }
 
         [Test]
