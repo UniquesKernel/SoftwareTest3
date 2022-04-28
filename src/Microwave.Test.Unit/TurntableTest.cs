@@ -67,6 +67,7 @@ namespace Microwave.Test.Unit
         [TestCase]
         public void Stop_WasStopped_CorrectOutcome()
         {
+            uut.Stop();
             output.DidNotReceive().OutputLine(Arg.Any<string>());
         }
 
